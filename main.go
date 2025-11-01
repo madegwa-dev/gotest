@@ -12,6 +12,8 @@ func main() {
 	// Load .env only if it exists (ignore missing file)
 	godotenv.Load()
 
+	//todo: nothing
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // default fallback
