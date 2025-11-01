@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -10,14 +9,14 @@ import (
 )
 
 func main() {
-	// Load .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	// Load .env only if it exists (ignore missing file)
+	godotenv.Load()
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // default fallback
 	}
 
-	// Access environment variables
-	port := os.Getenv("PORT")
 	dbURL := os.Getenv("DB_URL")
 
 	fmt.Println("Server running on port:", port)
@@ -25,7 +24,6 @@ func main() {
 
 	r := gin.Default()
 
-	// Define root route
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"port":    port,
@@ -34,6 +32,5 @@ func main() {
 		})
 	})
 
-	// Start server
-	r.Run(":" + port) // listens on the port from .env
+	r.Run(":" + port)
 }
