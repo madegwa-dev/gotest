@@ -30,7 +30,7 @@ func main() {
 		c.JSON(200, gin.H{
 			"port":    port,
 			"db_url":  dbURL,
-			"message": "Hello from your Go server!",
+			"message": "Hello oscar from your Go server!",
 		})
 	})
 
